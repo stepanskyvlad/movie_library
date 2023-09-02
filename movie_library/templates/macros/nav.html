@@ -1,3 +1,5 @@
+{% from "macros/svgs.html" import moon, sun %}
+
 {% macro header(email, theme) %}
   <header class="header">
     <div class="nav-container">
@@ -37,6 +39,16 @@
             <span class="nav__item">Log out</span>
           </a>
         {% endif %}
+        <a href="{{ url_for('pages.toggle_theme', current_page=request.path) }}"
+        class="nav__link">
+          <span class="nav__item">
+            {% if theme == "dark" %}
+              {{ sun("nav__icon") }}
+            {% else %}
+              {{ moon("nav__icon") }}
+            {% endif %}
+          </span>
+        </a>
       </nav>
     </div>
   </header>
