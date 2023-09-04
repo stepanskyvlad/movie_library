@@ -1,5 +1,14 @@
 import uuid
-from flask import Blueprint, render_template, session, redirect, request, current_app, url_for
+from flask import (
+    Blueprint,
+    render_template,
+    session,
+    redirect,
+    request,
+    current_app,
+    url_for,
+    abort
+)
 from dataclasses import asdict
 from movie_library.forms import MovieForm
 from movie_library.models import Movie
@@ -40,6 +49,15 @@ def add_movie():
     return render_template(
         "new_movie.html", title="Movies Watchlist - Add Movie", form=form
     )
+
+
+@pages.get("/movie/<string:_id>")
+def movie(_id: str):
+    movie_data = current_app.db.movie.find_one({"_id": _id})
+    if not movie_data:
+        abort(404)
+    movie = Movie(**movie_data)
+    return render_template("movie_details.html", movie=movie)
 
 
 @pages.get("/toggle-theme")
