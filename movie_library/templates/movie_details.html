@@ -30,7 +30,7 @@
                 {% else %}
                     <p><a href="{{ url_for('pages.watch_today', _id=movie._id) }}" class="watched__link">Not watched yet</a></p>
                 {% endif %}
-                <a class="movie__edit" href="#">Edit {{ pencil("pencil") }}</a>
+                <a class="movie__edit" href="{{ url_for('pages.edit_movie', _id=movie._id) }}">Edit {{ pencil("pencil") }}</a>
             </div>
         </div>
         <div class="header__row">
